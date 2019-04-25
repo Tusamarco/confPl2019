@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24-Apr-2019 8:11:39 PM by Hibernate Tools 5.4.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sakila" dynamic-insert="false" dynamic-update="false" mutable="true" name="net.tc.sakila.Payment" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="payment">
+        <id name="paymentId" type="java.lang.Short">
+            <column name="payment_id"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="net.tc.sakila.Customer" embed-xml="true" fetch="select" insert="true" name="customer" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="customer_id" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="net.tc.sakila.Rental" embed-xml="true" fetch="select" insert="true" name="rental" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="rental_id"/>
+        </many-to-one>
+        <many-to-one class="net.tc.sakila.Staff" embed-xml="true" fetch="select" insert="true" name="staff" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="staff_id" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="amount" optimistic-lock="true" type="big_decimal" unique="false">
+            <column name="amount" not-null="true" precision="5"/>
+        </property>
+        <property generated="never" lazy="false" name="paymentDate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="26" name="payment_date" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="lastUpdate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="26" name="last_update"/>
+        </property>
+    </class>
+</hibernate-mapping>

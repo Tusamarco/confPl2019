@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24-Apr-2019 8:11:39 PM by Hibernate Tools 5.4.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sakila" dynamic-insert="false" dynamic-update="false" mutable="true" name="net.tc.sakila.StaffList" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="staff_list">
+        <comment>VIEW</comment>
+        <composite-id class="net.tc.sakila.StaffListId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="id" type="byte">
+                <column name="ID"/>
+            </key-property>
+            <key-property name="name" type="string">
+                <column length="91" name="name"/>
+            </key-property>
+            <key-property name="address" type="string">
+                <column length="50" name="address"/>
+            </key-property>
+            <key-property name="zipCode" type="string">
+                <column length="10" name="`zip code`"/>
+            </key-property>
+            <key-property name="phone" type="string">
+                <column length="20" name="phone"/>
+            </key-property>
+            <key-property name="city" type="string">
+                <column length="50" name="city"/>
+            </key-property>
+            <key-property name="country" type="string">
+                <column length="50" name="country"/>
+            </key-property>
+            <key-property name="sid" type="byte">
+                <column name="SID"/>
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

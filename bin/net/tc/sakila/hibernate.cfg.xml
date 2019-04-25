@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <mapping resource="net/tc/sakila/Address.hbm.xml"/>
+        <mapping resource="net/tc/sakila/CustomerList.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Film.hbm.xml"/>
+        <mapping resource="net/tc/sakila/FilmActor.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Country.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Category.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Staff.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Store.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Customer.hbm.xml"/>
+        <mapping resource="net/tc/sakila/FilmCategory.hbm.xml"/>
+        <mapping resource="net/tc/sakila/FilmList.hbm.xml"/>
+        <mapping resource="net/tc/sakila/City.hbm.xml"/>
+        <mapping resource="net/tc/sakila/SalesByStore.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Actor.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Language.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Payment.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Rental.hbm.xml"/>
+        <mapping resource="net/tc/sakila/NicerButSlowerFilmList.hbm.xml"/>
+        <mapping resource="net/tc/sakila/ActorInfo.hbm.xml"/>
+        <mapping resource="net/tc/sakila/StaffList.hbm.xml"/>
+        <mapping resource="net/tc/sakila/SalesByFilmCategory.hbm.xml"/>
+        <mapping resource="net/tc/sakila/FilmText.hbm.xml"/>
+        <mapping resource="net/tc/sakila/Inventory.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

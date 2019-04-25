@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24-Apr-2019 8:11:39 PM by Hibernate Tools 5.4.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sakila" dynamic-insert="false" dynamic-update="false" mutable="true" name="net.tc.sakila.Country" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="country">
+        <id name="countryId" type="java.lang.Short">
+            <column name="country_id"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="country" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="country" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="lastUpdate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="26" name="last_update" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="cities" optimistic-lock="true" sort="unsorted" table="city">
+            <key on-delete="noaction">
+                <column name="country_id" not-null="true"/>
+            </key>
+            <one-to-many class="net.tc.sakila.City" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

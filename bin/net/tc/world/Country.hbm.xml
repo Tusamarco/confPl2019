@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24-Apr-2019 6:29:43 PM by Hibernate Tools 5.4.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true" -->
+
+<hibernate-mapping package="net.tc.world">
+    <class catalog="world" dynamic-insert="false" dynamic-update="false" mutable="true" name="Country" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="Country">
+        <id name="code" type="string">
+            <column length="3" name="Code"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="name" optimistic-lock="true" type="string" unique="false">
+            <column length="52" name="Name" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="continent" optimistic-lock="true" type="string" unique="false">
+            <column length="13" name="Continent" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="region" optimistic-lock="true" type="string" unique="false">
+            <column length="26" name="Region" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="surfaceArea" optimistic-lock="true" type="float" unique="false">
+            <column name="SurfaceArea" not-null="true" precision="10"/>
+        </property>
+        <property generated="never" lazy="false" name="indepYear" optimistic-lock="true" type="java.lang.Short" unique="false">
+            <column name="IndepYear"/>
+        </property>
+        <property generated="never" lazy="false" name="population" optimistic-lock="true" type="int" unique="false">
+            <column name="Population" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="lifeExpectancy" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="LifeExpectancy" precision="3" scale="1"/>
+        </property>
+        <property generated="never" lazy="false" name="gnp" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="GNP" precision="10"/>
+        </property>
+        <property generated="never" lazy="false" name="gnpold" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="GNPOld" precision="10"/>
+        </property>
+        <property generated="never" lazy="false" name="localName" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="LocalName" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="governmentForm" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="GovernmentForm" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="headOfState" optimistic-lock="true" type="string" unique="false">
+            <column length="60" name="HeadOfState"/>
+        </property>
+        <property generated="never" lazy="false" name="capital" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="Capital"/>
+        </property>
+        <property generated="never" lazy="false" name="code2" optimistic-lock="true" type="string" unique="false">
+            <column length="2" name="Code2" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="cities" optimistic-lock="true" sort="unsorted" table="city">
+            <key on-delete="noaction">
+                <column name="CountryCode" not-null="true"/>
+            </key>
+            <one-to-many class="net.tc.world.City" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

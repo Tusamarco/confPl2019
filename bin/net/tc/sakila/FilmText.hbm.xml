@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24-Apr-2019 8:11:39 PM by Hibernate Tools 5.4.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sakila" dynamic-insert="false" dynamic-update="false" mutable="true" name="net.tc.sakila.FilmText" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="film_text">
+        <id name="filmId" type="short">
+            <column name="film_id"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="title" optimistic-lock="true" type="string" unique="false">
+            <column name="title" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
+            <column length="65535" name="description"/>
+        </property>
+    </class>
+</hibernate-mapping>

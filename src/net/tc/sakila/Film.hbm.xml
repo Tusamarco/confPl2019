@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24-Apr-2019 8:11:39 PM by Hibernate Tools 5.4.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sakila" dynamic-insert="false" dynamic-update="false" mutable="true" name="net.tc.sakila.Film" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="film">
+        <id name="filmId" type="java.lang.Short">
+            <column name="film_id"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="net.tc.sakila.Language" embed-xml="true" fetch="select" insert="true" name="languageByLanguageId" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="language_id" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="net.tc.sakila.Language" embed-xml="true" fetch="select" insert="true" name="languageByOriginalLanguageId" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="original_language_id"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="title" optimistic-lock="true" type="string" unique="false">
+            <column name="title" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
+            <column length="65535" name="description"/>
+        </property>
+        <property generated="never" lazy="false" name="releaseYear" optimistic-lock="true" type="date" unique="false">
+            <column length="4" name="release_year"/>
+        </property>
+        <property generated="never" lazy="false" name="rentalDuration" optimistic-lock="true" type="byte" unique="false">
+            <column name="rental_duration" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="rentalRate" optimistic-lock="true" type="big_decimal" unique="false">
+            <column name="rental_rate" not-null="true" precision="4"/>
+        </property>
+        <property generated="never" lazy="false" name="length" optimistic-lock="true" type="java.lang.Short" unique="false">
+            <column name="length"/>
+        </property>
+        <property generated="never" lazy="false" name="replacementCost" optimistic-lock="true" type="big_decimal" unique="false">
+            <column name="replacement_cost" not-null="true" precision="5"/>
+        </property>
+        <property generated="never" lazy="false" name="rating" optimistic-lock="true" type="string" unique="false">
+            <column length="5" name="rating"/>
+        </property>
+        <property generated="never" lazy="false" name="specialFeatures" optimistic-lock="true" type="string" unique="false">
+            <column length="54" name="special_features"/>
+        </property>
+        <property generated="never" lazy="false" name="lastUpdate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="26" name="last_update" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="inventories" optimistic-lock="true" sort="unsorted" table="inventory">
+            <key on-delete="noaction">
+                <column name="film_id" not-null="true"/>
+            </key>
+            <one-to-many class="net.tc.sakila.Inventory" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="filmActors" optimistic-lock="true" sort="unsorted" table="film_actor">
+            <key on-delete="noaction">
+                <column name="film_id" not-null="true"/>
+            </key>
+            <one-to-many class="net.tc.sakila.FilmActor" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="filmCategories" optimistic-lock="true" sort="unsorted" table="film_category">
+            <key on-delete="noaction">
+                <column name="film_id" not-null="true"/>
+            </key>
+            <one-to-many class="net.tc.sakila.FilmCategory" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24-Apr-2019 8:11:39 PM by Hibernate Tools 5.4.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sakila" dynamic-insert="false" dynamic-update="false" mutable="true" name="net.tc.sakila.Address" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="address">
+        <id name="addressId" type="java.lang.Short">
+            <column name="address_id"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="net.tc.sakila.City" embed-xml="true" fetch="select" insert="true" name="city" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="city_id" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="address" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="address" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="address2" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="address2"/>
+        </property>
+        <property generated="never" lazy="false" name="district" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="district" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="postalCode" optimistic-lock="true" type="string" unique="false">
+            <column length="10" name="postal_code"/>
+        </property>
+        <property generated="never" lazy="false" name="phone" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="phone" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="lastUpdate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="26" name="last_update" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="staffs" optimistic-lock="true" sort="unsorted" table="staff">
+            <key on-delete="noaction">
+                <column name="address_id" not-null="true"/>
+            </key>
+            <one-to-many class="net.tc.sakila.Staff" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="customers" optimistic-lock="true" sort="unsorted" table="customer">
+            <key on-delete="noaction">
+                <column name="address_id" not-null="true"/>
+            </key>
+            <one-to-many class="net.tc.sakila.Customer" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="stores" optimistic-lock="true" sort="unsorted" table="store">
+            <key on-delete="noaction">
+                <column name="address_id" not-null="true"/>
+            </key>
+            <one-to-many class="net.tc.sakila.Store" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

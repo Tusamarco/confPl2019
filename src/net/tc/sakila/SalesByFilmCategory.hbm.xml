@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24-Apr-2019 8:11:39 PM by Hibernate Tools 5.4.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sakila" dynamic-insert="false" dynamic-update="false" mutable="true" name="net.tc.sakila.SalesByFilmCategory" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="sales_by_film_category">
+        <comment>VIEW</comment>
+        <composite-id class="net.tc.sakila.SalesByFilmCategoryId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="category" type="string">
+                <column length="25" name="category"/>
+            </key-property>
+            <key-property name="totalSales" type="big_decimal">
+                <column name="total_sales" precision="27"/>
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

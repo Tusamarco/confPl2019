@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24-Apr-2019 6:29:43 PM by Hibernate Tools 5.4.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="net.tc.world" auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="world" dynamic-insert="false" dynamic-update="false" mutable="true" name="CountryLanguage" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="CountryLanguage">
+        <composite-id class="net.tc.world.CountryLanguageId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="countryCode" type="string">
+                <column length="3" name="CountryCode"/>
+            </key-property>
+            <key-property name="language" type="string">
+                <column length="30" name="Language"/>
+            </key-property>
+        </composite-id>
+        <property generated="never" lazy="false" name="isOfficial" optimistic-lock="true" type="char" unique="false">
+            <column length="1" name="IsOfficial" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="percentage" optimistic-lock="true" type="float" unique="false">
+            <column name="Percentage" not-null="true" precision="4" scale="1"/>
+        </property>
+    </class>
+</hibernate-mapping>
