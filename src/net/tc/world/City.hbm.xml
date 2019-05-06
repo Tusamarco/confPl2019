@@ -4,7 +4,7 @@
 <hibernate-mapping package="net.tc.world">   
    
     <!-- class catalog="world" dynamic-insert="false" dynamic-update="false" mutable="true" name="City" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="City" -->
-      <class name="City" table="City" >  
+      <class name="City" table="City" mutable="true" >  
         <id name="id" type="java.lang.Integer">
             <column name="ID"/>
             <generator class="identity"/>

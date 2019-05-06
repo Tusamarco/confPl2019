@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- Generated 28-Apr-2019 3:52:07 PM by Hibernate Tools 5.4.2.Final -->
+<hibernate-mapping package="net.tc.employees">
+
+<class
+    name="Salaries"
+    table="salaries"
+    catalog="employees"
+    optimistic-lock="version"
+>
+
+    <composite-id
+		name="id"
+        class="net.tc.employees.SalariesId"
+    >		
+	        <key-property name="empNo" type="int">
+<column name="emp_no" />
+	        </key-property>
+	        <key-property name="fromDate" type="date">
+<column name="from_date" length="10" />
+	        </key-property>
+    </composite-id>	
+
+
+
+
+    <many-to-one
+	    name="employees"
+	    class="net.tc.employees.Employees"
+	    
+        update="false"
+        insert="false"
+        fetch="select"
+    >
+<column name="emp_no" not-null="true" />
+   </many-to-one>
+    <property
+        name="salary"
+	    type="int"
+    >
+<column name="salary" not-null="true" />
+  </property>
+
+    <property
+        name="toDate"
+	    type="date"
+    >
+<column name="to_date" length="10" not-null="true" />
+  </property>
+
+
+
+</class>
+
+</hibernate-mapping>

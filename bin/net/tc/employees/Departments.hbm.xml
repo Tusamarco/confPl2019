@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- Generated 28-Apr-2019 3:52:07 PM by Hibernate Tools 5.4.2.Final -->
+<hibernate-mapping package="net.tc.employees">
+
+<class
+    name="Departments"
+    table="departments"
+    catalog="employees"
+    optimistic-lock="version"
+>
+
+	<id 
+        name="deptNo"
+        type="string"
+    >
+    
+<column name="dept_no" length="4" />
+	    <generator class="assigned" />
+    </id>
+
+
+
+
+    <property
+        name="deptName"
+	    type="string"
+    >
+<column name="dept_name" length="40" not-null="true" unique="true" />
+  </property>
+
+
+	<set name="deptEmps"
+table="dept_emp"
+	inverse="true"
+	lazy="true"	 		
+	 fetch="select"
+	>
+		<key
+		> 
+<column name="dept_no" length="4" not-null="true" />
+		</key>
+<one-to-many class="net.tc.employees.DeptEmp"
+/>
+	</set>
+
+	<set name="deptManagers"
+table="dept_manager"
+	inverse="true"
+	lazy="true"	 		
+	 fetch="select"
+	>
+		<key
+		> 
+<column name="dept_no" length="4" not-null="true" />
+		</key>
+<one-to-many class="net.tc.employees.DeptManager"
+/>
+	</set>
+
+
+</class>
+
+</hibernate-mapping>

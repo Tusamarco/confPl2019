@@ -6,29 +6,32 @@
     <session-factory>
         <!--
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/world?useSSL=false</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/employees?useSSL=false</property>
         <property name="hibernate.connection.password">password</property>
-        <property name="hibernate.connection.username">hibernatew</property>
-        -->
-
+        <property name="hibernate.connection.username">hibernatee</property>
+		-->
+        
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- property name="hibernate.jdbc.batch_size">50</property -->
         <!-- property name="format_sql">true</property -->
         <property name="show_sql">true</property>
         
-        <!-- HIKARI -->
+        <!-- HIKARI -->	
          <property name="hibernate.connection.provider_class">org.hibernate.hikaricp.internal.HikariCPConnectionProvider</property>
 		 <property name="hibernate.hikari.minimumIdle">5</property>
 		 <property name="hibernate.hikari.maximumPoolSize">20</property>
 		 <property name="hibernate.hikari.idleTimeout">30000</property>
 		 <property name="hibernate.hikari.dataSourceClassName">com.mysql.cj.jdbc.MysqlDataSource</property>
-		 <property name="hibernate.hikari.dataSource.url">jdbc:mysql://127.0.0.1:3306/world?useSSL=false</property>
+		 <property name="hibernate.hikari.dataSource.url">jdbc:mysql://127.0.0.1:3306/employees?useSSL=false</property>
          <property name="hibernate.hikari.dataSource.password">password</property>
-         <property name="hibernate.hikari.dataSource.user">hibernatew</property>
+         <property name="hibernate.hikari.dataSource.user">hibernatee</property>
         
-        
-        
-        <mapping resource="net/tc/world/Country.hbm.xml"/>
-        <mapping resource="net/tc/world/CountryLanguage.hbm.xml"/>
-        <mapping resource="net/tc/world/City.hbm.xml"/>
+        <mapping resource="net/tc/employees/Departments.hbm.xml"/>
+        <mapping resource="net/tc/employees/DeptEmp.hbm.xml"/>
+        <mapping resource="net/tc/employees/DeptManager.hbm.xml"/>
+        <mapping resource="net/tc/employees/Employees.hbm.xml"/>
+        <mapping resource="net/tc/employees/Salaries.hbm.xml"/>
+        <mapping resource="net/tc/employees/Titles.hbm.xml"/>
+       
     </session-factory>
 </hibernate-configuration>
