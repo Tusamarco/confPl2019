@@ -119,7 +119,15 @@ public class Employees  implements java.io.Serializable {
         this.deptManagers = deptManagers;
     }
 
-
+    public String toString() {
+    	StringBuffer sb = new StringBuffer();
+    	sb.append(this.getEmpNo() + " ");
+    	sb.append(this.getFirstName() + " ");
+    	sb.append(this.getLastName() + " ");
+    	sb.append(this.getHireDate().toString() + " ");
+    	return sb.toString();
+    	
+    }
 
 
 }

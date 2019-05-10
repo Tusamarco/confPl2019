@@ -59,7 +59,7 @@
 <set name="titleses"
 	table="titles"
 	inverse="true"
-	lazy="false"	 		
+	lazy="true"	 		
 	 fetch="select"
 	>
 		<key> 

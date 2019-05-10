@@ -3,28 +3,33 @@
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <!--
+    <session-factory name="basic">
+    	 <property name="sessionFactoryName">Basic</property>
+       
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/employees?useSSL=false</property>
         <property name="hibernate.connection.password">password</property>
         <property name="hibernate.connection.username">hibernatee</property>
-		-->
+		
         
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <!-- property name="hibernate.jdbc.batch_size">50</property -->
-        <!-- property name="format_sql">true</property -->
-        <property name="show_sql">true</property>
+        <property name="hibernate.jdbc.batch_size">20</property>
         
-        <!-- HIKARI -->	
-         <property name="hibernate.connection.provider_class">org.hibernate.hikaricp.internal.HikariCPConnectionProvider</property>
-		 <property name="hibernate.hikari.minimumIdle">5</property>
-		 <property name="hibernate.hikari.maximumPoolSize">20</property>
-		 <property name="hibernate.hikari.idleTimeout">30000</property>
-		 <property name="hibernate.hikari.dataSourceClassName">com.mysql.cj.jdbc.MysqlDataSource</property>
-		 <property name="hibernate.hikari.dataSource.url">jdbc:mysql://127.0.0.1:3306/employees?useSSL=false</property>
-         <property name="hibernate.hikari.dataSource.password">password</property>
-         <property name="hibernate.hikari.dataSource.user">hibernatee</property>
+         <property name="hibernate.jdbc.cachePrepStmts">true</property>
+         <property name="hibernate.jdbc.prepStmtCacheSize">250</property>
+         <property name="hibernate.jdbc.prepStmtCacheSqlLimit">2048</property>
+         <property name="hibernate.jdbc.useServerPrepStmts">true</property>
+         <property name="hibernate.jdbc.useLocalSessionState">true</property>
+         <property name="hibernate.jdbc.rewriteBatchedStatements">true</property>
+         <property name="hibernate.jdbc.cacheResultSetMetadata">true</property>
+         <property name="hibernate.jdbc.cacheServerConfiguration">true</property>
+         <property name="hibernate.jdbc.elideSetAutoCommits">true</property>
+         <property name="hibernate.jdbc.maintainTimeStats">false</property>
+        
+        <!-- property name="format_sql">true</property -->
+        <property name="show_sql">false</property>
+        
+   
         
         <mapping resource="net/tc/employees/Departments.hbm.xml"/>
         <mapping resource="net/tc/employees/DeptEmp.hbm.xml"/>
@@ -34,4 +39,7 @@
         <mapping resource="net/tc/employees/Titles.hbm.xml"/>
        
     </session-factory>
+    
+    
+    
 </hibernate-configuration>
