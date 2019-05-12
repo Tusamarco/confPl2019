@@ -87,7 +87,6 @@ public static void main(String[] args) {
 	 */
 
 	/** NOT BATCHED **/
-	startTime = System.nanoTime();
 	ws.setEmployees(ws.getHikariConnection());
 	ws.getEmployees(ws.getHikariConnection());
 	ws.updateEmployees(ws.getHikariConnection());

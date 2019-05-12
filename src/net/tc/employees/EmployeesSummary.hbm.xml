@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- Generated 28-Apr-2019 3:52:07 PM by Hibernate Tools 5.4.2.Final -->
+<hibernate-mapping package="net.tc.employees">
+
+<class
+    name="EmployeesSummary"
+    table="employees"
+    catalog="employees"
+    optimistic-lock="version">
+
+	<id 
+        name="empNo"
+        type="int">
+    
+		<column name="emp_no" />
+	    <generator class="assigned" />
+    </id>
+
+    <property
+        name="birthDate"
+	    type="date"
+    >
+		<column name="birth_date" length="10" not-null="true" />
+  </property>
+
+    <property
+        name="firstName"
+	    type="string"
+    >
+		<column name="first_name" length="14" not-null="true" />
+  </property>
+
+  <property
+        name="lastName"
+	    type="string"
+    >
+		<column name="last_name" length="16" not-null="true" />
+  </property>
+
+  <property
+        name="gender"
+	    type="char"
+  >
+		<column name="gender" length="1" not-null="true" />
+ </property>
+
+<property
+        name="hireDate"
+	    type="date"
+    >
+		<column name="hire_date" length="10" not-null="true" />
+ </property>
+
+
+<set name="titleses"
+	table="titles"
+	inverse="true"
+	lazy="false"	 		
+	 fetch="select"
+	>
+		<key> 
+			<column name="emp_no" not-null="true" />
+		</key>
+		<one-to-many class="net.tc.employees.Titles"/>
+	</set>
+
+<set name="salarieses"
+	table="salaries"
+	inverse="true"
+	lazy="false"	 		
+	 fetch="select"
+	>
+	<key> 
+		<column name="emp_no" not-null="true" />
+	</key>
+	<one-to-many class="net.tc.employees.Salaries"/>
+	</set>
+
+<set name="deptEmps"
+	table="dept_emp"
+	inverse="true"
+	lazy="false"	 		
+	 fetch="select">
+		<key> 
+			<column name="emp_no" not-null="true" />
+		</key>
+		<one-to-many class="net.tc.employees.DeptEmp"/>
+</set>
+
+<set name="deptManagers"
+	table="dept_manager"
+	inverse="true"
+	lazy="false"	 		
+	 fetch="select">
+		<key> 
+			<column name="emp_no" not-null="true" />
+		</key>
+		<one-to-many class="net.tc.employees.DeptManager"/>
+</set>
+
+
+</class>
+
+</hibernate-mapping>

@@ -20,6 +20,7 @@
          <property name="hibernate.jdbc.prepStmtCacheSqlLimit">2048</property>
          <property name="hibernate.jdbc.useServerPrepStmts">true</property>
          <property name="hibernate.jdbc.useLocalSessionState">true</property>
+         <property name="hibernate.jdbc.defaultFetchSize">100</property>
          <property name="hibernate.jdbc.rewriteBatchedStatements">true</property>
          <property name="hibernate.jdbc.cacheResultSetMetadata">true</property>
          <property name="hibernate.jdbc.cacheServerConfiguration">true</property>
@@ -35,6 +36,7 @@
         <mapping resource="net/tc/employees/DeptEmp.hbm.xml"/>
         <mapping resource="net/tc/employees/DeptManager.hbm.xml"/>
         <mapping resource="net/tc/employees/Employees.hbm.xml"/>
+        <mapping resource="net/tc/employees/EmployeesSummary.hbm.xml"/>
         <mapping resource="net/tc/employees/Salaries.hbm.xml"/>
         <mapping resource="net/tc/employees/Titles.hbm.xml"/>
        

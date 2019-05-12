@@ -28,6 +28,7 @@
          <property name="hibernate.hikari.dataSource.password">password</property>
          <property name="hibernate.hikari.dataSource.user">hibernatee</property>
          <property name="hibernate.hikari.dataSource.cachePrepStmts">true</property>
+         <property name="hibernate.hikari.dataSource.defaultFetchSize">100</property>
          <property name="hibernate.hikari.dataSource.prepStmtCacheSize">250</property>
          <property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">2048</property>
          <property name="hibernate.hikari.dataSource.useServerPrepStmts">true</property>
@@ -46,6 +47,7 @@
         <mapping resource="net/tc/employees/DeptEmp.hbm.xml"/>
         <mapping resource="net/tc/employees/DeptManager.hbm.xml"/>
         <mapping resource="net/tc/employees/Employees.hbm.xml"/>
+        <mapping resource="net/tc/employees/EmployeesSummary.hbm.xml"/>
         <mapping resource="net/tc/employees/Salaries.hbm.xml"/>
         <mapping resource="net/tc/employees/Titles.hbm.xml"/>
        
