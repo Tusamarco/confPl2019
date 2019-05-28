@@ -13,8 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeMap;
 
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Root;
 import javax.sql.DataSource;
@@ -32,6 +35,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.boot.spi.SessionFactoryOptions;
 import org.hibernate.criterion.CriteriaQuery;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.stat.Statistics;
 import org.jboss.logging.Logger;
 
@@ -75,6 +79,7 @@ public static void main(String[] args) {
 	ExampleWithHibernateVsSQL eVS =new ExampleWithHibernateVsSQL();
 	eVS.init();
 	
+//	eVS.getEmployeeACID(eVS.getSessionFactoryEmp(),eVS.getSimpleMySQLConnection());
 
 	eVS.getEmployees(eVS.getSessionFactoryEmp());
 	eVS.getEmployeesNotLazy(eVS.getSessionFactoryEmp());
@@ -94,7 +99,7 @@ private void init() {
 	PropertyConfigurator.configure("log4j.properties");
 	logger = LogManager.getLogger("PL2019");
 //	logger.info("Logger Test");
-	this.setSessionFactory(getSFactory("hibernate.cfg.xml"));
+//	this.setSessionFactory(getSFactory("hibernate.cfg.xml"));
 	this.setSessionFactoryEmp(getSFactory("hibernate_employees.cfg.xml"));
 	this.setSessionFactoryEmpHikari(getSFactory("hibernate_employees_hikari.cfg.xml"));
 	
@@ -123,49 +128,14 @@ private void getEmployees(SessionFactory sessionFactoryEmp2) {
 	Session se = sessionFactoryEmp2.openSession();
 	se.beginTransaction();
 	List<Employees> employees = se.createQuery("from Employees where emp_no >10000 and emp_no < 20020 " ).list();
-	List<Titles> titles = null;
-//			se.createQuery("from City where CountryCode = 'ITA'").list();
-
-	/*
-	 * Loop employees
-	 */
-//	int i = 0;
-//	while(i < 100) {
-		Iterator it = employees.iterator();
+	Iterator it = employees.iterator();
 		
-		while(it.hasNext()) {
-			Employees myEmp = (Employees) it.next();
-			logger.info("Employee name = " + myEmp.getFirstName()+" "+ myEmp.getLastName());
-//			Iterator it2 = myEmp.getTitleses().iterator();
-//			Iterator it3 = myEmp.getSalarieses().iterator();
-//			Iterator it4 = myEmp.getDeptEmps().iterator();
-//			while(it2.hasNext()) {
-//				Titles myTitle = (Titles) it2.next();
-//				logger.info("\t\t Title "+ myTitle.getId().getTitle() +"  Up to "+ myTitle.getToDate().toString());
-//			}
-//			while(it3.hasNext()) {
-//				Salaries mySalary = (Salaries) it3.next();
-//				logger.info("\t\t Salary "+ mySalary.getSalary() +"  Up to "+ mySalary.getToDate().toString());
-//			}
-//
-//			while(it4.hasNext()) {
-//				DeptEmp myDeps = (DeptEmp) it4.next();
-//				logger.info("\t\t Deps "+ myDeps.getDepartments().getDeptName()+"  Up to "+ myDeps.getToDate().toString());
-//			}
+	while(it.hasNext()) {
+		Employees myEmp = (Employees) it.next();
+		logger.info("Employee name = " + myEmp.getFirstName()+" "+ myEmp.getLastName());
+	}
+	logger.info("------------");
 
-		}
-		
-				
-//		try {
-////			Thread.sleep(2000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		logger.info("------------");
-
-//		i++;
-//	}
 	se.disconnect();
 	se.close();
 	this.getPerformance().put((connName.indexOf("Hikari")>0?" Hikari ":" Basic ")+"\tT1\t Read employees Hibernate - Lazy\t" , (System.nanoTime()-startTime));
@@ -184,21 +154,18 @@ private void getEmployeesNotLazy(SessionFactory sessionFactoryEmp2) {
 	se.beginTransaction();
 	
 	List<EmployeesSummary> employees = se.createQuery("from EmployeesSummary where emp_no >10000 and emp_no < 20020 " ).list();
-	List<Titles> titles = null;
-
+//	List<EmployeesSummary> employees = se.createQuery("from EmployeesSummary where emp_no >10000 and emp_no < 10003 " ).list();
 	/*
 	 * Loop employees
 	 */
-//	int i = 0;
-//	while(i < 100) {
-		Iterator it = employees.iterator();
+	Iterator it = employees.iterator();
 		
-		while(it.hasNext()) {
-			EmployeesSummary myEmp = (EmployeesSummary) it.next();
-			logger.info("EmployeeSummary name = " + myEmp.getFirstName()+" "+ myEmp.getLastName());
-			Iterator it2 = myEmp.getTitleses().iterator();
-			Iterator it3 = myEmp.getSalarieses().iterator();
-			Iterator it4 = myEmp.getDeptEmps().iterator();
+	while(it.hasNext()) {
+		EmployeesSummary myEmp = (EmployeesSummary) it.next();
+		logger.info("EmployeeSummary name = " + myEmp.getFirstName()+" "+ myEmp.getLastName());
+		Iterator it2 = myEmp.getTitleses().iterator();
+		Iterator it3 = myEmp.getSalarieses().iterator();
+		Iterator it4 = myEmp.getDeptEmps().iterator();
 //			while(it2.hasNext()) {
 //				Titles myTitle = (Titles) it2.next();
 //				logger.info("\t\t Title "+ myTitle.getId().getTitle() +"  Up to "+ myTitle.getToDate().toString());
@@ -213,19 +180,9 @@ private void getEmployeesNotLazy(SessionFactory sessionFactoryEmp2) {
 //				logger.info("\t\t Deps "+ myDeps.getDepartments().getDeptName()+"  Up to "+ myDeps.getToDate().toString());
 //			}
 
-		}
+	}
 		
-				
-//		try {
-////			Thread.sleep(2000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		logger.info("------------");
-
-//		i++;
-//	}
 	se.disconnect();
 	se.close();
 	this.getPerformance().put((connName.indexOf("Hikari")>0?" Hikari ":" Basic ")+"\tT2\t Read employees Hibernate - NOT Lazy\t" , (System.nanoTime()-startTime));
@@ -242,6 +199,7 @@ private void getEmployees(Connection conn) {
 		int rowReturned=0;
 //		stmt.execute("START TRANSACTION");
 		ResultSet rs = stmt.executeQuery(sqlHead);
+		HashSet employees = new HashSet(); 
 		
 		while(rs.next()) {
 			Employees employee = new Employees();
@@ -253,6 +211,7 @@ private void getEmployees(Connection conn) {
 			employee.setLastName(rs.getString("last_name"));
 //				logger.info("Employee details :" +employee.toString());
 
+			employees.add(employee);
 			this.logger.info("Retrieved Employee " + employee.getFirstName() +" " + employee.getLastName());
 		}
 		rs.last();
@@ -289,9 +248,10 @@ private void getEmployeesNotLazy(Connection conn) {
 //		while(++i < 500) {
 //			sb.append(i);
 		ResultSet rs = stmt.executeQuery(sqlEmp);
+		HashSet employees = new HashSet(); 
 		
 		while(rs.next()) {
-			Employees employee = new Employees();
+			EmployeesSummary employee = new EmployeesSummary();
 			employee.setBirthDate(rs.getDate("birth_date"));
 			employee.setHireDate(rs.getDate("hire_date"));
 			employee.setGender( rs.getString("gender").charAt(0));
@@ -347,6 +307,7 @@ private void getEmployeesNotLazy(Connection conn) {
 			rsT.close();
 			rsD.close();
 			rsS.close();
+			employees.add(employee);
 		}
 		rs.last();
 
@@ -363,6 +324,83 @@ private void getEmployeesNotLazy(Connection conn) {
 		ex.printStackTrace();
 	}
 	this.getPerformance().put( (connName.indexOf("Hikari")>0?" Hikari ":" Basic ")+"\tT4\t Read employees NO Hibernate - NOT Lazy\t", (System.nanoTime()-startTime));
+}
+
+private void getEmployeeACID(SessionFactory sessionFactoryEmp2,Connection conn) {
+	String connName ="";
+	Map properties = sessionFactoryEmp2.getProperties();
+	if(properties != null && properties.get("sessionFactoryName") !=null) {
+		connName = "-"+properties.get("sessionFactoryName");	
+	}
+
+	Session se = sessionFactoryEmp2.openSession();
+	se.beginTransaction();
+	
+	logger.info("I am the 1st TRX ");
+	EmployeesSummary myEmp = se.find(EmployeesSummary.class,10001, LockModeType.PESSIMISTIC_WRITE);
+
+	Set salaries = null;
+	salaries =  myEmp.getSalarieses();
+	Iterator itS = salaries.iterator();
+//	se.close();
+	
+	while(itS.hasNext()) {
+		Salaries mySal = (Salaries) itS.next();
+		if(mySal.getToDate().toString().equals("9999-01-01")){
+			logger.info("1TRX Employee name Before = " + myEmp.getFirstName()+" "+ myEmp.getLastName() +" " + mySal.getSalary());
+			mySal.setSalary(mySal.getSalary() + 100);
+			logger.info("1TRX Employee name After = " + myEmp.getFirstName()+" "+ myEmp.getLastName() +" " + mySal.getSalary());
+		}
+	}
+	logger.info("Another Transaction is modifying the same value ");
+//	this.getEmployeeACIDSub(sessionFactoryEmp2);
+	
+//	se.close();
+//	se = sessionFactoryEmp2.openSession();
+//	se.beginTransaction();
+	
+	se.saveOrUpdate(myEmp);
+	se.getTransaction().commit();
+	se.disconnect();
+	se.close();
+	logger.info("1TRX COmplete");
+	
+}
+
+private void getEmployeeACIDSub(SessionFactory sessionFactoryEmp2) {
+	String connName ="";
+	Map properties = sessionFactoryEmp2.getProperties();
+	if(properties != null && properties.get("sessionFactoryName") !=null) {
+		connName = "-"+properties.get("sessionFactoryName");	
+	}
+
+	long startTime = System.nanoTime();
+
+	Session se = sessionFactoryEmp2.openSession();
+	se.beginTransaction();
+
+	logger.info("I am the 2nd TRX ");
+	EmployeesSummary myEmp = se.find(EmployeesSummary.class,10001, LockModeType.PESSIMISTIC_WRITE);
+
+	Set salaries = null;
+	salaries =  myEmp.getSalarieses();
+	Iterator itS = salaries.iterator();
+	
+	while(itS.hasNext()) {
+		Salaries mySal = (Salaries) itS.next();
+		if(mySal.getToDate().toString().equals("9999-01-01")){
+			logger.info("2TRX Employee name Before = " + myEmp.getFirstName()+" "+ myEmp.getLastName() +" " + mySal.getSalary());
+			mySal.setSalary(mySal.getSalary() - 400);
+			logger.info("2TRX Employee name After = " + myEmp.getFirstName()+" "+ myEmp.getLastName() +" " + mySal.getSalary());
+		}
+	}
+
+	se.saveOrUpdate(myEmp);
+	se.getTransaction().commit();
+	se.disconnect();
+	se.close();
+	logger.info("2TRX COmplete");	
+	
 }
 
 private SessionFactory getSFactory(String conf) {

@@ -7,15 +7,20 @@
     	 <property name="sessionFactoryName">Basic</property>
        
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/employees?useSSL=false</property>
+        
+        
+        <!-- property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/employees?useSSL=false</property -->
+        
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3316/employees?prepStmtCacheSize=250&amp;prepStmtCacheSqlLimit=2048&amp;useServerPrepStmts=YES&amp;useLocalSessionState=YES&amp;useSSL=false&amp;defaultFetchSize=100&amp;rewriteBatchedStatements=YES&amp;cacheResultSetMetadata=YES&amp;cacheServerConfiguration=YES&amp;elideSetAutoCommits=YES&amp;maintainTimeStats=false</property>
+      
         <property name="hibernate.connection.password">password</property>
         <property name="hibernate.connection.username">hibernatee</property>
 		
         
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.jdbc.batch_size">20</property>
-        
-         <property name="hibernate.jdbc.cachePrepStmts">true</property>
+         
+         <!-- property name="hibernate.jdbc.cachePrepStmts">true</property>
          <property name="hibernate.jdbc.prepStmtCacheSize">250</property>
          <property name="hibernate.jdbc.prepStmtCacheSqlLimit">2048</property>
          <property name="hibernate.jdbc.useServerPrepStmts">true</property>
@@ -25,7 +30,7 @@
          <property name="hibernate.jdbc.cacheResultSetMetadata">true</property>
          <property name="hibernate.jdbc.cacheServerConfiguration">true</property>
          <property name="hibernate.jdbc.elideSetAutoCommits">true</property>
-         <property name="hibernate.jdbc.maintainTimeStats">false</property>
+         <property name="hibernate.jdbc.maintainTimeStats">false</property -->
         
         <!-- property name="format_sql">true</property -->
         <property name="show_sql">false</property>

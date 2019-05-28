@@ -72,7 +72,7 @@ public ExampleWithHibernate() {
 	getEmployees(sessionFactoryEmpHikari);
 	updateEmployeesBatch(sessionFactoryEmpHikari);
 	deleteEmployeesBatch(sessionFactoryEmpHikari);
-	
+
 	
 	
 	this.printStats();
@@ -85,7 +85,7 @@ private void init() {
 	PropertyConfigurator.configure("log4j.properties");
 	logger = LogManager.getLogger("PL2019");
 //	logger.info("Logger Test");
-	sessionFactory = getSFactory("hibernate.cfg.xml");
+//	sessionFactory = getSFactory("hibernate.cfg.xml");
 	sessionFactoryEmp = getSFactory("hibernate_employees.cfg.xml");
 	sessionFactoryEmpHikari = getSFactory("hibernate_employees_hikari.cfg.xml");
 	
@@ -103,6 +103,7 @@ private void setEmployees(SessionFactory sessionFactoryEmp2) {
 	long startTime = System.nanoTime();
 
 	Session se = sessionFactoryEmp2.openSession();
+	se.setJdbcBatchSize(1);
 	se.beginTransaction();
 	int i=1;
 	while(++i < 500) {
@@ -132,41 +133,13 @@ private void getEmployees(SessionFactory sessionFactoryEmp2) {
 	long startTime = System.nanoTime();
 	
 	Session se = sessionFactoryEmp2.openSession();
+	se.setJdbcBatchSize(1);
+	
 	se.beginTransaction();
-	List<Employees> employees = se.createQuery("from Employees where emp_no=10001 " ).list();
-	List<Titles> titles = null;
-//			se.createQuery("from City where CountryCode = 'ITA'").list();
-
-	/*
-	 * Loop employees
-	 */
-//	int i = 0;
-//	while(i < 100) {
-//		Iterator it = employees.iterator();
-//		
-//		while(it.hasNext()) {
-//			Employees myEmp = (Employees) it.next();
-//			logger.info("Employee name = " + myEmp.getFirstName()+" "+ myEmp.getLastName());
-//			Iterator it2 = myEmp.getTitleses().iterator();
-//			while(it2.hasNext()) {
-//				Titles myTitle = (Titles) it2.next();
-//				logger.info("\t\t "+ myTitle.getId().getTitle() +"  Up to "+ myTitle.getToDate().toString());
-//			}
-//		}
-//		
-//				
-//		try {
-//			Thread.sleep(2000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		logger.info("------------");
-////		this.getCitys(sessionFactoryEmp2);
-//		i++;
-//	}
+	List<Employees> employees = se.createQuery("from Employees where emp_no <999 " ).list();
 	se.disconnect();
 	se.close();
+
 	this.getPerformance().put((connName.indexOf("Hikari")>0?" Hikari ":" Basic ")+"\tT2\t Read employees Hibernate - no batch\t" , (System.nanoTime()-startTime));
 }
 
@@ -180,10 +153,11 @@ private void updateEmployees(SessionFactory sessionFactoryEmp2) {
 	long startTime = System.nanoTime();
 	
 	Session se = sessionFactoryEmp2.openSession();
+	se.setJdbcBatchSize(1);
+	
 	se.beginTransaction();
 	List<Employees> employees = se.createQuery("from Employees where emp_no <999 " ).list();
 	List<Titles> titles = null;
-//			se.createQuery("from City where CountryCode = 'ITA'").list();
 
 	/*
 	 * Loop employees
@@ -215,6 +189,8 @@ private void deleteEmployees(SessionFactory sessionFactoryEmp2) {
 	long startTime = System.nanoTime();
 	
 	Session se = sessionFactoryEmp2.openSession();
+	se.setJdbcBatchSize(1);
+	
 	se.beginTransaction();
 	List<Employees> employees = se.createQuery("from Employees where emp_no < 999" ).list();
 	
@@ -243,6 +219,7 @@ private void setEmployeesBatch(SessionFactory sessionFactoryEmp2) {
 	long startTime = System.nanoTime();
 	
 	Session se = sessionFactoryEmp2.openSession();
+	se.setJdbcBatchSize(20);
 	se.beginTransaction();
 	int i=1;
 	while(i < 500) {
@@ -259,8 +236,6 @@ private void setEmployeesBatch(SessionFactory sessionFactoryEmp2) {
 		        se.flush();
 		        se.clear();
 		    }
-		
-		
 	}
 	se.getTransaction().commit(); 
 	se.close();
@@ -278,10 +253,9 @@ private void updateEmployeesBatch(SessionFactory sessionFactoryEmp2) {
 	long startTime = System.nanoTime();
 	
 	Session se = sessionFactoryEmp2.openSession();
+	se.setJdbcBatchSize(20);
 	se.beginTransaction();
 	List<Employees> employees = se.createQuery("from Employees where emp_no <999 " ).list();
-	List<Titles> titles = null;
-//			se.createQuery("from City where CountryCode = 'ITA'").list();
 
 	/*
 	 * Loop employees
@@ -317,6 +291,7 @@ private void deleteEmployeesBatch(SessionFactory sessionFactoryEmp2) {
 	long startTime = System.nanoTime();
 	
 	Session se = sessionFactoryEmp2.openSession();
+	se.setJdbcBatchSize(20);
 	se.beginTransaction();
 //	ScrollableResults employees = se.createQuery("from Employees where emp_no < 501" )
 //									.setCacheMode(CacheMode.IGNORE)
@@ -332,7 +307,7 @@ private void deleteEmployeesBatch(SessionFactory sessionFactoryEmp2) {
 		Employees myEmp = (Employees) it.next();
 //		logger.info("Employee name = " + myEmp.getFirstName()+" "+ myEmp.getLastName());
 		se.delete(myEmp);
-		if ( ++i % 50 == 0 ) { //20, same as the JDBC batch size
+		if ( ++i % 20 == 0 ) { //20, same as the JDBC batch size
 	        //flush a batch of inserts and release memory:
 	        se.flush();
 	        se.clear();
@@ -395,6 +370,7 @@ private SessionFactory getSFactory(String conf) {
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
 				.configure(conf) // configures settings from hibernate.cfg.xml
 				.build();
+
 		
 		try {
 			sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
@@ -407,7 +383,7 @@ private SessionFactory getSFactory(String conf) {
 			StandardServiceRegistryBuilder.destroy( registry );
 		}
 	}
-	else if(this.sessionFactory != null 
+	else if(this.sessionFactory != null  
 			&& this.sessionFactoryEmp == null) {
 		final StandardServiceRegistry registry2 = new StandardServiceRegistryBuilder()
 				.configure(conf) // configures settings from hibernate.cfg.xml

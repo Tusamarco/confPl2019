@@ -9,6 +9,7 @@
         <!--
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/employees?useSSL=false</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/employees?prepStmtCacheSize=250&amp;prepStmtCacheSqlLimit=2048&amp;useServerPrepStmts=YES&amp;useLocalSessionState=YES&amp;useSSL=false&amp;defaultFetchSize=100&amp;rewriteBatchedStatements=YES&amp;cacheResultSetMetadata=YES&amp;cacheServerConfiguration=YES&amp;elideSetAutoCommits=YES&amp;maintainTimeStats=false</property>
         <property name="hibernate.connection.password">password</property>
         <property name="hibernate.connection.username">hibernatee</property>
 		-->

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Random;
 import java.util.TreeMap;
@@ -66,16 +67,16 @@ public static void main(String[] args) {
 	 */
 	
 	/** NOT BATCHED **/
-	ws.setEmployees(ws.getSimpleMySQLConnection());
-	ws.getEmployees(ws.getSimpleMySQLConnection());
-	ws.updateEmployees(ws.getSimpleMySQLConnection());
-	ws.deleteEmployeesOneByOne(ws.getSimpleMySQLConnection());
+//	ws.setEmployees(ws.getSimpleMySQLConnection());
+//	ws.getEmployees(ws.getSimpleMySQLConnection());
+//	ws.updateEmployees(ws.getSimpleMySQLConnection());
+//	ws.deleteEmployeesOneByOne(ws.getSimpleMySQLConnection());
 	
 	/** BATCHED **/
-	ws.setEmployeesBatch(ws.getSimpleMySQLConnection());
-	ws.getEmployeesBatch(ws.getSimpleMySQLConnection());
-	ws.updateEmployeesBatch(ws.getSimpleMySQLConnection());
-	ws.deleteEmployeesAll(ws.getSimpleMySQLConnection());
+//	ws.setEmployeesBatch(ws.getSimpleMySQLConnection());
+//	ws.getEmployeesBatch(ws.getSimpleMySQLConnection());
+//	ws.updateEmployeesBatch(ws.getSimpleMySQLConnection());
+//	ws.deleteEmployeesAll(ws.getSimpleMySQLConnection());
 	/*
 	 * Test Standard CRUD with basic connection
 	 * [END]
@@ -132,7 +133,7 @@ private void init() {
 	this.setUser("hibernatee");
 	this.setDatabase("employees");
 	this.setServerUrl("127.0.0.1");
-	this.setServerPort(3306);
+	this.setServerPort(3316);
 	
 	String pattern = "yyyy-MM-dd";
 	simpleDateFormat = new SimpleDateFormat(pattern);
@@ -161,9 +162,8 @@ private void setEmployees(Connection conn) {
 			stmt.execute(sqlHead+sb.toString());
 //			logger.info("SQL: " +sqlHead+sb.toString());
 			sb.delete(0,sb.length());
-		
 		}
-		stmt.executeBatch();
+		
 		conn.commit();
 	}catch(SQLException ex) {
 		ex.printStackTrace();
@@ -185,7 +185,7 @@ private void getEmployees(Connection conn) {
 		while(++i < 500) {
 			sb.append(i);
 			ResultSet rs = stmt.executeQuery(sqlHead+sb.toString());
-			
+			HashSet employees = new HashSet(); 
 			while(rs.next()) {
 				Employees employee = new Employees();
 				employee.setBirthDate(rs.getDate("birth_date"));
@@ -195,6 +195,7 @@ private void getEmployees(Connection conn) {
 				employee.setFirstName(rs.getString("first_name"));
 				employee.setLastName(rs.getString("last_name"));
 //				logger.info("Employee details :" +employee.toString());
+				employees.add(employee);
 			}
 			rs.last();
 			rowReturned =rowReturned + rs.getRow();
@@ -230,7 +231,7 @@ private void updateEmployees(Connection conn) {
 		while(++i < 500) {
 			sb.append(i);
 			ResultSet rs = stmt.executeQuery(sqlHead+sb.toString());
-			
+			HashSet employees = new HashSet(); 
 			while(rs.next()) {
 				Employees employee = new Employees();
 				employee.setBirthDate(rs.getDate("birth_date"));
@@ -243,6 +244,7 @@ private void updateEmployees(Connection conn) {
 				stmtP.setDate(1, java.sql.Date.valueOf(this.getSimpleDateFormat().format(employee.getHireDate())));
 				stmtP.setInt(2, employee.getEmpNo());
 				stmtP.executeUpdate();
+				employees.add(employee);
 //				logger.info("Employee Update details :" +employee.toString());
 			}
 			rs.last();
@@ -330,6 +332,7 @@ private void getEmployeesBatch(Connection conn) {
 		int rowReturned=0;
 //		stmt.execute("START TRANSACTION");
 		ResultSet rs = stmt.executeQuery(sqlHead);
+		HashSet employees = new HashSet();
 		while(rs.next()) {
 			Employees employee = new Employees();
 			employee.setBirthDate(rs.getDate("birth_date"));
@@ -339,6 +342,7 @@ private void getEmployeesBatch(Connection conn) {
 			employee.setFirstName(rs.getString("first_name"));
 			employee.setLastName(rs.getString("last_name"));
 //			logger.info("Employee details :" +employee.toString());
+			employees.add(employee);
 		}
 		rs.last();
 		rowReturned =rs.getRow();
@@ -371,6 +375,7 @@ private void updateEmployeesBatch(Connection conn) {
 		int rowReturned=0;
 //		stmt.execute("START TRANSACTION");
 		ResultSet rs = stmt.executeQuery(sqlHead);
+		HashSet employees = new HashSet();
 		while(rs.next()) {
 			Employees employee = new Employees();
 			employee.setBirthDate(rs.getDate("birth_date"));
@@ -385,6 +390,7 @@ private void updateEmployeesBatch(Connection conn) {
 			stmtP.setInt(2, employee.getEmpNo());
 			stmtP.addBatch();
 //			logger.info("Employee details :" +employee.toString());
+			employees.add(employee);
 		}
 		int[] ip = stmtP.executeBatch();
 		rs.last();

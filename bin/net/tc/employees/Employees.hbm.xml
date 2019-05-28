@@ -56,7 +56,7 @@
  </property>
 
 
-<set name="titleses"
+<!-- set name="titleses"
 	table="titles"
 	inverse="true"
 	lazy="true"	 		
@@ -100,7 +100,7 @@
 			<column name="emp_no" not-null="true" />
 		</key>
 		<one-to-many class="net.tc.employees.DeptManager"/>
-</set>
+</set -->
 
 
 </class>

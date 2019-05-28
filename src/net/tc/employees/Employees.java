@@ -18,10 +18,10 @@ public class Employees  implements java.io.Serializable {
      private String lastName;
      private char gender;
      private Date hireDate;
-     private Set titleses = new HashSet(0);
-     private Set salarieses = new HashSet(0);
-     private Set deptEmps = new HashSet(0);
-     private Set deptManagers = new HashSet(0);
+//     private Set titleses = new HashSet(0);
+//     private Set salarieses = new HashSet(0);
+//     private Set deptEmps = new HashSet(0);
+//     private Set deptManagers = new HashSet(0);
 
     public Employees() {
     }
@@ -42,10 +42,10 @@ public class Employees  implements java.io.Serializable {
        this.lastName = lastName;
        this.gender = gender;
        this.hireDate = hireDate;
-       this.titleses = titleses;
-       this.salarieses = salarieses;
-       this.deptEmps = deptEmps;
-       this.deptManagers = deptManagers;
+//       this.titleses = titleses;
+//       this.salarieses = salarieses;
+//       this.deptEmps = deptEmps;
+//       this.deptManagers = deptManagers;
     }
    
     public int getEmpNo() {
@@ -90,34 +90,34 @@ public class Employees  implements java.io.Serializable {
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
-    public Set getTitleses() {
-        return this.titleses;
-    }
-    
-    public void setTitleses(Set titleses) {
-        this.titleses = titleses;
-    }
-    public Set getSalarieses() {
-        return this.salarieses;
-    }
-    
-    public void setSalarieses(Set salarieses) {
-        this.salarieses = salarieses;
-    }
-    public Set getDeptEmps() {
-        return this.deptEmps;
-    }
-    
-    public void setDeptEmps(Set deptEmps) {
-        this.deptEmps = deptEmps;
-    }
-    public Set getDeptManagers() {
-        return this.deptManagers;
-    }
-    
-    public void setDeptManagers(Set deptManagers) {
-        this.deptManagers = deptManagers;
-    }
+//    public Set getTitleses() {
+//        return this.titleses;
+//    }
+//    
+//    public void setTitleses(Set titleses) {
+//        this.titleses = titleses;
+//    }
+//    public Set getSalarieses() {
+//        return this.salarieses;
+//    }
+//    
+//    public void setSalarieses(Set salarieses) {
+//        this.salarieses = salarieses;
+//    }
+//    public Set getDeptEmps() {
+//        return this.deptEmps;
+//    }
+//    
+//    public void setDeptEmps(Set deptEmps) {
+//        this.deptEmps = deptEmps;
+//    }
+//    public Set getDeptManagers() {
+//        return this.deptManagers;
+//    }
+//    
+//    public void setDeptManagers(Set deptManagers) {
+//        this.deptManagers = deptManagers;
+//    }
 
     public String toString() {
     	StringBuffer sb = new StringBuffer();
